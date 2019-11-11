@@ -27,6 +27,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        // the main view has been created
+        // now the layout manager will render the UI
         setContentView(R.layout.activity_main);
 
         // set up button listeners, route all clicks here
