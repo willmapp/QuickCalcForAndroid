@@ -85,6 +85,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         // set the first and second values
         setExpressionValue();
+        // STP-4
+        // this is what will fix, the shit is broke problem
         // compute
         if(m_operation != NONE)
         {
