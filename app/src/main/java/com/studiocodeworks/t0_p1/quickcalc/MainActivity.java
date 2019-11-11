@@ -78,6 +78,65 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         divideButton.setOnClickListener(this);
     }
 
+    // implementation
+    private void equalsButtonTapped()
+    {
+        EditText    expressionTextField = (EditText)findViewById(R.id.edittext_expression);
+
+        // set the first and second values
+        setExpressionValue();
+        // compute
+        if(m_operation != NONE)
+        {
+            double result = 0.0;
+
+            // check for potential divide by zero
+            if(m_operation == DIVIDE && m_secondValue == 0.0)
+            {
+                // the user tried to divide by zero
+                expressionTextField.setText("NaN");
+            }
+            else
+            {
+                switch(m_operation)
+                {
+                    case ADD:
+                        result = m_firstValue + m_secondValue;
+                        break;
+
+                    case SUBTRACT:
+                        result = m_firstValue - m_secondValue;
+                        break;
+
+                    case MULTIPLY:
+                        result = m_firstValue * m_secondValue;
+                        break;
+
+                    case DIVIDE:
+                        result = m_firstValue / m_secondValue;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                try
+                {
+                    // convert the number to a string
+                    // and set the text field
+                    String numberAsText = Double.toString(result);
+                    expressionTextField.setText(numberAsText);
+                    m_replaceValue  = true;
+                    m_operation     = NONE;
+                }
+                catch(Exception ex)
+                {
+                    Log.e("MainActivity", "An error occurred while converting string, Error: " + ex);
+                }
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -164,65 +223,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             default:
                 break;
-        }
-    }
-
-    // implementation
-    private void equalsButtonTapped()
-    {
-        EditText    expressionTextField = (EditText)findViewById(R.id.edittext_expression);
-
-        // set the first and second values
-        setExpressionValue();
-        // compute
-        if(m_operation != NONE)
-        {
-            double result = 0.0;
-
-            // check for potential divide by zero
-            if(m_operation == DIVIDE && m_secondValue == 0.0)
-            {
-                // the user tried to divide by zero
-                expressionTextField.setText("NaN");
-            }
-            else
-            {
-                switch(m_operation)
-                {
-                    case ADD:
-                        result = m_firstValue + m_secondValue;
-                        break;
-
-                    case SUBTRACT:
-                        result = m_firstValue - m_secondValue;
-                        break;
-
-                    case MULTIPLY:
-                        result = m_firstValue * m_secondValue;
-                        break;
-
-                    case DIVIDE:
-                        result = m_firstValue / m_secondValue;
-                        break;
-
-                    default:
-                        break;
-                }
-
-                try
-                {
-                    // convert the number to a string
-                    // and set the text field
-                    String numberAsText = Double.toString(result);
-                    expressionTextField.setText(numberAsText);
-                    m_replaceValue  = true;
-                    m_operation     = NONE;
-                }
-                catch(Exception ex)
-                {
-                    Log.e("MainActivity", "An error occurred while converting string, Error: " + ex);
-                }
-            }
         }
     }
 
